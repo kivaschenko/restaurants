@@ -36,7 +36,10 @@ HA Cloud Architecture Schema/Diagram (Preferably Azure)
 Usage of Linting and Static typing  tools
 
 
+### API Schemas ###
 
+* [Redoc](http://localhost:8000/api/schema/redoc/)
+* [Swagger](http://127.0.0.1:8000/api/schema/swagger-ui/)
 
 ### What is this repository for? ###
 
