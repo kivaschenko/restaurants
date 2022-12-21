@@ -15,33 +15,65 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Restaurant',
+            name="Restaurant",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('short_name', models.CharField(db_index=True, max_length=60, unique=True)),
-                ('full_name', models.CharField(max_length=255, null=True)),
-                ('description', models.TextField(max_length=1000, null=True)),
-                ('lng', models.DecimalField(decimal_places=6, max_digits=8, null=True)),
-                ('lat', models.DecimalField(decimal_places=6, max_digits=8, null=True)),
-                ('address', models.CharField(max_length=255)),
-                ('admin', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='rests', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "short_name",
+                    models.CharField(db_index=True, max_length=60, unique=True),
+                ),
+                ("full_name", models.CharField(max_length=255, null=True)),
+                ("description", models.TextField(max_length=1000, null=True)),
+                ("lng", models.DecimalField(decimal_places=6, max_digits=8, null=True)),
+                ("lat", models.DecimalField(decimal_places=6, max_digits=8, null=True)),
+                ("address", models.CharField(max_length=255)),
+                (
+                    "admin",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="rests",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['short_name'],
+                "ordering": ["short_name"],
             },
         ),
         migrations.CreateModel(
-            name='Menu',
+            name="Menu",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', models.TextField(max_length=100)),
-                ('actual_date', models.DateField()),
-                ('votes', models.IntegerField()),
-                ('restaurant', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='places.restaurant')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("body", models.TextField(max_length=100)),
+                ("actual_date", models.DateField()),
+                ("votes", models.IntegerField()),
+                (
+                    "restaurant",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="places.restaurant",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-actual_date'],
-                'unique_together': {('restaurant', 'actual_date')},
+                "ordering": ["-actual_date"],
+                "unique_together": {("restaurant", "actual_date")},
             },
         ),
     ]
