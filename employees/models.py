@@ -7,12 +7,12 @@ class Employee(models.Model):
     position = models.CharField(max_length=160, null=True)
     department = models.CharField(max_length=160, null=True)
     phone = models.CharField(max_length=20, null=True)
-    
+
     class Meta:
-        ordering = ['department', 'position']
-    
+        ordering = ["department", "position"]
+
     def __str__(self) -> str:
-        return f'{self.position} {self.user.get_full_name()}'
+        return f"{self.position} {self.user.get_full_name()}"
 
     def __repr__(self) -> str:
-        return f'<Employee(id={self.id} user={self.user}...)>'
+        return f"<Employee(id={self.id} user={self.user}...)>"

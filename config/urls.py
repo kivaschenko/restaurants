@@ -13,8 +13,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/", include("places.urls")),
     path('', lambda res: HttpResponse(status=200,
-                                      content='<a href="/api/v1/schema/swagger-ui/">SwaggerUI</a>\
-                                      <br><a href="/api/v1/schema/redoc/">ReDoc examples</a>'
+                                      content='<ul><li><a href="/api/v1/schema/swagger-ui/">SwaggerUI</a></li>\
+                                      <li><a href="/api/v1/schema/redoc/">ReDoc examples</a></li></ul>'
                                       ), name='homepage'),
 ]
 

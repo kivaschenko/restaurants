@@ -7,36 +7,30 @@ from .models import Employee
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-            required=True,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
+    email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
 
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2', 'email', 'first_name', 'last_name')
-        extra_kwargs = {
-            'first_name': {'required': True},
-            'last_name': {'required': True}
-        }
+        fields = ("username", "password", "password2", "email", "first_name", "last_name")
+        extra_kwargs = {"first_name": {"required": True}, "last_name": {"required": True}}
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
+        if attrs["password"] != attrs["password2"]:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
 
         return attrs
 
     def create(self, validated_data):
         user = User.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']
+            username=validated_data["username"],
+            email=validated_data["email"],
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
         )
-        user.set_password(validated_data['password'])
+        user.set_password(validated_data["password"])
         user.save()
         return user
 
@@ -44,13 +38,13 @@ class RegisterSerializer(serializers.ModelSerializer):
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ['position', 'department', 'phone']
-    
+        fields = ["position", "department", "phone"]
+
     def validate(self, attrs):
-        user = self._kwargs['data']['user']
-        attrs.update({'user': user})
+        user = self._kwargs["data"]["user"]
+        attrs.update({"user": user})
         return attrs
-    
+
     def create(self, validated_data):
         employee = Employee.objects.create(**validated_data)
         employee.save()
