@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     # local
     'places.apps.PlacesConfig',
+    'employees.apps.EmployeesConfig',
 ]
 
 MIDDLEWARE = [

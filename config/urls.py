@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -10,17 +11,25 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("places.urls")),
+    path("api/v1/", include("places.urls")),
+    path('', lambda res: HttpResponse(status=200,
+                                      content='<a href="/api/v1/schema/swagger-ui/">SwaggerUI</a>\
+                                      <br><a href="/api/v1/schema/redoc/">ReDoc examples</a>'
+                                      ), name='homepage'),
 ]
 
 urlpatterns += [
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("api/token/blacklist/", TokenBlacklistView.as_view(), name='token_blacklist'),
+    path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/v1/token/blacklist/", TokenBlacklistView.as_view(), name='token_blacklist'),
 ]
 
 urlpatterns += [
-    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
-    path("api/schema/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    path("api/v1/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/v1/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    path("api/v1/schema/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+]
+
+urlpatterns += [
+    path("api/v1/", include("employees.urls"),)
 ]

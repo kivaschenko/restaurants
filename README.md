@@ -38,31 +38,5 @@ Usage of Linting and Static typing  tools
 
 ### API Schemas ###
 
-* [Redoc](http://localhost:8000/api/schema/redoc/)
-* [Swagger](http://127.0.0.1:8000/api/schema/swagger-ui/)
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* [Redoc](http://localhost:8000/api/v1/schema/redoc/)
+* [Swagger](http://127.0.0.1:8000/api/v1/schema/swagger-ui/)
