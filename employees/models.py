@@ -16,3 +16,9 @@ class Employee(models.Model):
 
     def __repr__(self) -> str:
         return f"<Employee(id={self.id} user={self.user}...)>"
+
+
+class Votes(models.Model):
+    employee = models.OneToOneField(Employee, on_delete=models.CASCADE)
+    votes_date = models.DateField(auto_now_add=True)
+    

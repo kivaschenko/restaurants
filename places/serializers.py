@@ -1,5 +1,8 @@
+from datetime import date
+
 from rest_framework import serializers
 from .models import Restaurant, Menu, FoodItem
+from employees.models import Votes
 
 
 class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
@@ -40,21 +43,42 @@ class MenuSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Menu
-        fields = ("id", "restaurant_id", "food_items", "actual_date")
+        fields = ("id", "restaurant_id", "food_items", "actual_date", "votes")
+        read_only_fields = ("votes",)
 
     def validate(self, attrs):
         print('attrs:', attrs)
         return super().validate(attrs)
 
-    def create(self, validate_data):
+    def create(self, validated_data):
         food_items_objects = []
-        food_item_list = validate_data.pop('food_items')
+        food_item_list = validated_data.pop('food_items')
         for dict_ in food_item_list:
             food_item, created = FoodItem.objects.get_or_create(**dict_)
             food_items_objects.append(food_item)
-        restaurant_id = validate_data.pop('restaurant_id')
+        restaurant_id = validated_data.pop('restaurant_id')
         restaurant = Restaurant.objects.get(id=restaurant_id)
-        menu = Menu.objects.create(restaurant=restaurant, actual_date=validate_data['actual_date'], votes=0)
+        menu = Menu.objects.create(restaurant=restaurant, actual_date=validated_data['actual_date'], votes=0)
         menu.save()
         menu.food_items.set(food_items_objects)
         return menu
+
+
+class MenuVotesUpdate(serializers.ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = '__all__'
+        read_only_fields = ['id', 'restaurant', 'food_items', 'actual_date']
+
+    def validate(self, attrs):
+        employee = self.context['request'].user.employee
+        today = date.today()
+        obj, created = Votes.objects.get_or_create(employee=employee, votes_date=today)
+        if not created:
+            raise serializers.ValidationError('This user already voted today.')
+        return attrs
+
+    def update(self, instance, validated_data):
+        instance.votes += 1
+        instance.save()
+        return instance

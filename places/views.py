@@ -2,7 +2,7 @@ from datetime import date
 from rest_framework import generics
 
 from .models import Restaurant, Menu, FoodItem
-from .serializers import RestaurantSerializer, MenuSerializer, FoodItemSerializer
+from .serializers import RestaurantSerializer, MenuSerializer, FoodItemSerializer, MenuVotesUpdate
 from .permissions import IsAdminOrReadOnly, IsRestaurateurOrReadOnly
 
 # ----
@@ -24,6 +24,11 @@ class MenuDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
     permission_classes = (IsRestaurateurOrReadOnly,)
+
+    
+class MenuVoteView(generics.UpdateAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuVotesUpdate
 
 
 # ----------
