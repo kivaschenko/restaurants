@@ -14,7 +14,7 @@ urlpatterns = [
     path("api/v1/", include("places.urls")),
     path('', lambda res: HttpResponse(status=200,
                                       content='<ul><h2><li><a href="/api/v1/schema/swagger-ui/">SwaggerUI</a></h2></li>\
-                                      <li><h2><a href="/api/v1/schema/redoc/">ReDoc examples</a></h2></li></ul>'
+                                      <h2><li><a href="/api/v1/schema/redoc/">ReDoc examples</a></li></h2></ul>'
                                       ), name='homepage'),
 ]
 
