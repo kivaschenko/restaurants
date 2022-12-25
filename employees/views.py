@@ -8,12 +8,14 @@ from .models import Employee
 
 
 class CreateUserView(generics.CreateAPIView):
+    '''Create a new User. This user might be used as for employee profile as for restaurant's admin too.'''
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
 
 
 class CreateEmployeeView(generics.CreateAPIView):
+    '''Create a new employee profile bonded with logged in user.'''
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 

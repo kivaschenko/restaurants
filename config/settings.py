@@ -179,13 +179,9 @@ SIMPLE_JWT = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Lunch Places API',
     'DESCRIPTION': '''
-        Company needs internal service for it's employees which helps them to make a decision
-        on lunch place. 
-
-        Each restaurant will be uploading menus using the system every day over API
-        Employees will vote for menu before leaving for lunch on mobile app for whom backend has to be implemented
-        There are users which did not update app to the latest version and backend has to support both versions.
-        Mobile app always sends build version in headers.
+    Company needs internal service for it's employees which helps them to make a decision on lunch place. 
+    Each restaurant will be uploading menus using the system every day over API Employees will vote for menu before leaving for lunch on mobile app for whom backend has to be implemented.
+    Mobile app always sends build version in headers.
     ''',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
